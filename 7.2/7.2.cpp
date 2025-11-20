@@ -20,10 +20,10 @@ vector<vector<int>> createGraphAdjMatrix() {
         }
     }
 
-    return g; // возвращаем созданный граф
+    return g; // ГўГ®Г§ГўГ°Г Г№Г ГҐГ¬ Г±Г®Г§Г¤Г Г­Г­Г»Г© ГЈГ°Г Гґ
 }
 
-// Печать матрицы смежности
+// ГЏГҐГ·Г ГІГј Г¬Г ГІГ°ГЁГ¶Г» Г±Г¬ГҐГ¦Г­Г®Г±ГІГЁ
 void printMatrix(const vector<vector<int>>& g) {
     int n = g.size();
     cout << "Graph's adjacency matrix:\n";
@@ -39,18 +39,18 @@ void primMST(const vector<vector<int>>& g) {
     const int INF = 1000000000;
     int n = g.size();
 
-    vector<int> minEdge(n, INF);   // минимальный вес ребра, ведущего в вершину
-    vector<int> selEdge(n, -1);    // откуда пришли в вершину
-    vector<bool> used(n, false);   // включена ли вершина в остов
+    vector<int> minEdge(n, INF);   // Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г»Г© ГўГҐГ± Г°ГҐГЎГ°Г , ГўГҐГ¤ГіГ№ГҐГЈГ® Гў ГўГҐГ°ГёГЁГ­Гі
+    vector<int> selEdge(n, -1);    // Г®ГІГЄГіГ¤Г  ГЇГ°ГЁГёГ«ГЁ Гў ГўГҐГ°ГёГЁГ­Гі
+    vector<bool> used(n, false);   // ГўГЄГ«ГѕГ·ГҐГ­Г  Г«ГЁ ГўГҐГ°ГёГЁГ­Г  Гў Г®Г±ГІГ®Гў
 
-    minEdge[0] = 0; // начинаем с вершины 0 (можно выбрать любую)
+    minEdge[0] = 0; // Г­Г Г·ГЁГ­Г ГҐГ¬ Г± ГўГҐГ°ГёГЁГ­Г» 0 (Г¬Г®Г¦Г­Г® ГўГ»ГЎГ°Г ГІГј Г«ГѕГЎГіГѕ)
 
     vector<tuple<int,int,int>> mstEdges; // (u, v, w)
     int totalWeight = 0;
 
     for (int i = 0; i < n; ++i) {
         int v = -1;
-        // выбираем неиспользованную вершину с минимальным minEdge
+        // ГўГ»ГЎГЁГ°Г ГҐГ¬ Г­ГҐГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ Г­Г­ГіГѕ ГўГҐГ°ГёГЁГ­Гі Г± Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г»Г¬ minEdge
         for (int j = 0; j < n; ++j) {
             if (!used[j] && (v == -1 || minEdge[j] < minEdge[v])) {
                 v = j;
@@ -64,7 +64,7 @@ void primMST(const vector<vector<int>>& g) {
 
         used[v] = true;
 
-        // добавляем ребро в остов (кроме стартовой вершины)
+        // Г¤Г®ГЎГ ГўГ«ГїГҐГ¬ Г°ГҐГЎГ°Г® Гў Г®Г±ГІГ®Гў (ГЄГ°Г®Г¬ГҐ Г±ГІГ Г°ГІГ®ГўГ®Г© ГўГҐГ°ГёГЁГ­Г»)
         if (selEdge[v] != -1) {
             int u = selEdge[v];
             int w = g[u][v];
@@ -72,7 +72,7 @@ void primMST(const vector<vector<int>>& g) {
             totalWeight += w;
         }
 
-        // обновляем расстояния до остальных вершин
+        // Г®ГЎГ­Г®ГўГ«ГїГҐГ¬ Г°Г Г±Г±ГІГ®ГїГ­ГЁГї Г¤Г® Г®Г±ГІГ Г«ГјГ­Г»Гµ ГўГҐГ°ГёГЁГ­
         for (int to = 0; to < n; ++to) {
             int w = g[v][to];
             if (w > 0 && !used[to] && w < minEdge[to]) {
@@ -82,7 +82,7 @@ void primMST(const vector<vector<int>>& g) {
         }
     }
 
-    // Вывод результата
+    // Г‚Г»ГўГ®Г¤ Г°ГҐГ§ГіГ«ГјГІГ ГІГ 
     cout << "\nMinimal spanning tree (Prim's algorithm):\n";
     cout << "Edges (verticles numbered from 1):\n";
     for (auto [u, v, w] : mstEdges) {
