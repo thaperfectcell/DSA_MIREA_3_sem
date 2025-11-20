@@ -20,10 +20,9 @@ vector<vector<int>> createGraphAdjMatrix() {
         }
     }
 
-    return g; // âîçâðàùàåì ñîçäàííûé ãðàô
+    return g; 
 }
 
-// Ïå÷àòü ìàòðèöû ñìåæíîñòè
 void printMatrix(const vector<vector<int>>& g) {
     int n = g.size();
     cout << "Graph's adjacency matrix:\n";
@@ -39,18 +38,16 @@ void primMST(const vector<vector<int>>& g) {
     const int INF = 1000000000;
     int n = g.size();
 
-    vector<int> minEdge(n, INF);   // ìèíèìàëüíûé âåñ ðåáðà, âåäóùåãî â âåðøèíó
-    vector<int> selEdge(n, -1);    // îòêóäà ïðèøëè â âåðøèíó
-    vector<bool> used(n, false);   // âêëþ÷åíà ëè âåðøèíà â îñòîâ
+    vector<int> minEdge(n, INF);   
+    vector<int> selEdge(n, -1);    
+    vector<bool> used(n, false);   
+    minEdge[0] = 0; 
 
-    minEdge[0] = 0; // íà÷èíàåì ñ âåðøèíû 0 (ìîæíî âûáðàòü ëþáóþ)
-
-    vector<tuple<int,int,int>> mstEdges; // (u, v, w)
+    vector<tuple<int,int,int>> mstEdges; 
     int totalWeight = 0;
 
     for (int i = 0; i < n; ++i) {
         int v = -1;
-        // âûáèðàåì íåèñïîëüçîâàííóþ âåðøèíó ñ ìèíèìàëüíûì minEdge
         for (int j = 0; j < n; ++j) {
             if (!used[j] && (v == -1 || minEdge[j] < minEdge[v])) {
                 v = j;
@@ -64,7 +61,6 @@ void primMST(const vector<vector<int>>& g) {
 
         used[v] = true;
 
-        // äîáàâëÿåì ðåáðî â îñòîâ (êðîìå ñòàðòîâîé âåðøèíû)
         if (selEdge[v] != -1) {
             int u = selEdge[v];
             int w = g[u][v];
@@ -72,7 +68,6 @@ void primMST(const vector<vector<int>>& g) {
             totalWeight += w;
         }
 
-        // îáíîâëÿåì ðàññòîÿíèÿ äî îñòàëüíûõ âåðøèí
         for (int to = 0; to < n; ++to) {
             int w = g[v][to];
             if (w > 0 && !used[to] && w < minEdge[to]) {
@@ -82,7 +77,6 @@ void primMST(const vector<vector<int>>& g) {
         }
     }
 
-    // Âûâîä ðåçóëüòàòà
     cout << "\nMinimal spanning tree (Prim's algorithm):\n";
     cout << "Edges (verticles numbered from 1):\n";
     for (auto [u, v, w] : mstEdges) {
@@ -100,4 +94,5 @@ int main() {
 
     return 0;
 }
+
 
